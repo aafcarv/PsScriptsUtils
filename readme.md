@@ -4,10 +4,6 @@
 
   Lista diretórios.
 
-## Get-xClock
-
-  Retorna a data e hora.
-
 ## Get-xCount
 
   Retorna o total de itens a partir de um pipe.
