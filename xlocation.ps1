@@ -1,5 +1,6 @@
 function Set-xLocation ($path = [string]::Empty) {
     $filepath = $(Join-Path $env:LocalAppData "locations.txt")
+    $isFound = $false    
     if (-not $(Test-Path $filepath)) {
         Set-Content [string]::Empty -Path $filepath -Encoding UTF8
     }        
@@ -8,14 +9,11 @@ function Set-xLocation ($path = [string]::Empty) {
         $locations = (@())
     } else {
         $locations = $locations -split [Environment]::NewLine
-    }
-    $isFound = $false
-    $isPath  = $false
+    }    
     if ([string]::IsNullOrEmpty($path)) {
         $path = $(Get-Location).Path
     } 
-    $isPath = $(Test-Path $path)
-    if ($isPath) {
+    if ($(Test-Path $path)) {
         foreach($location in $locations) {
             if ($location -eq $path) {
                 $isFound = $true
@@ -28,7 +26,7 @@ function Set-xLocation ($path = [string]::Empty) {
             Write-Output $([string]::Empty)
             Write-Output "Caminhos atualizados."
         }
-        XGet-Locations
+        Get-xLocations
     } else {
         Write-Output "O caminho informado nao e um caminho valido."
     }    
